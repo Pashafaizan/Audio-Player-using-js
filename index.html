@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+    <title> Audio player </title>
+</head>
+
+<body>
+    <div class="main_div">
+        <div class="audio_container">
+            <h2 id="title">Mera Mola Mera Dil Badal De</h2>
+            <h3 id="artist">Junaid Jamshed</h3>
+            <div class="img_container">
+                <img src="images/image2.jpg" alt="">
+            </div>
+         <audio src="audio/hasbi.mp3" > </audio>
+
+            <!-- controls-->
+            <div class="audio_control">
+                <i class="fas fa-backward" id ="prev"tittle="Previous"></i>
+                <i class="fas fa-play main_button" id ="play" tittle="Play"></i>
+                <i class="fas fa-forward" id ="next" tittle="Next"></i>
+            </div>
+        </div>
+        <footer>Made by Muhammad faizan pasha</footer>
+    </div>
+    <script>
+        const audio= document.querySelector('audio');
+        const play = document.getElementById('play');
+        const img = document.querySelector('img');
+        const next = document.getElementById('next')
+        const prev = document.getElementById('prev');
+        const tittle = document.getElementById('title');
+        const artist = document.getElementById('artist');
+       const items = [
+            {
+                name:"maula",
+               img:"image2",
+                tittle:"mera mola dil badal de",
+                artist:"junaid jamshed",
+                
+            },
+            {
+                name:"tukuja",
+               img:"image1",
+               tittle:"tu kuja man kuja ya rasoool ",
+               artist:"Abdul Qadir raza",
+               
+           },
+           {
+               name:"hasbi",
+               img:"car",
+               tittle:"hasbi rabi jall allah",
+               artist:"xyz",
+               
+           },
+        ];
+
+        let isplaying=false;
+     const playAudio = () =>{
+          isplaying=true;
+          audio.play();
+          play.classList.replace("fa-play", "fa-pause");
+          img.classList.add("anime");
+          play.classList.add("anime");
+      };
+      const pauseAudio = () => {
+          isplaying=false;
+          audio.pause()
+          play.classList.replace("fa-pause", "fa-play");
+         img.classList.remove("anime");
+         play.classList.remove("anime");
+      };
+      play.addEventListener("click",()=>{
+        isplaying ?pauseAudio() :playAudio()  ;
+      });
+   
+ 
+
+const loadAudio = (items) =>{
+      tittle.textContent=items.tittle;
+      artist.textContent=items.artist;
+      audio.src = "audio/" + items.name +".mp3";
+      img.src = "images/" + items.img +".jpg";
+
+};
+
+let audioIndex= 0;
+
+const nextAudio =() =>{
+    audioIndex=(audioIndex + 1) % items.length;
+    loadAudio(items[audioIndex]);
+    playAudio();
+}
+
+const prevAudio = ()=>{
+    audioIndex = (audioIndex - 1 + items.length) % items.length;
+    loadAudio(items[audioIndex]);
+    playAudio();
+}
+
+next.addEventListener('click',nextAudio);
+prev.addEventListener('click',prevAudio);
+      
+    </script>
+
+
+</body>
+
+</html>
